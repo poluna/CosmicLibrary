@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const genres = require("./routes/genres");
-const customers = require("./routes/customers");
+const users = require("./routes/users");
 const home = require("./routes/home");
 const app = express();
 
@@ -12,7 +12,7 @@ mongoose
 
 app.use(express.json());
 app.use("/api/genres", genres); // for any routes that starts with "/api/genres" use this router (genres)
-app.use("/api/customers", customers);
+app.use("/api/users", users);
 app.use("/", home);
 
 const port = process.env.PORT || 3000;
