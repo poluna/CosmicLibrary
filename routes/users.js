@@ -1,24 +1,6 @@
-const mongoose = require("mongoose");
-const Joi = require("joi");
+const { User, validate } = require("../models/user");
 const express = require("express");
 const router = express.Router();
-
-const usersSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    minlegnth: 5,
-    maxlength: 50,
-  },
-  email: {
-    type: String,
-    required: true,
-    minlegnth: 5,
-    maxlength: 50,
-  },
-});
-
-const User = mongoose.model("User", usersSchema);
 
 router.get("/", async (req, res) => {
   const users = await User.find().sort("username");
@@ -26,7 +8,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { error } = validateUser(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = new User({ username: req.body.username, email: req.body.email });
@@ -36,7 +18,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const { error } = validateUser(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const user = await User.findByIdAndUpdate(
@@ -68,13 +50,5 @@ router.get("/:id", async (res, req) => {
 
   res.send(user);
 });
-
-function validateUser(user) {
-  const schema = Joi.object({
-    name: Joi.string().min(5).max(50).required(),
-    email: Joi.string().min(5).max(50).required(),
-  });
-  return schema.validate(user);
-}
 
 module.exports = router;
