@@ -4,7 +4,7 @@
   "description": "express-demo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,8 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.10.7",
     "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "jest": "^26.5.0"
   }
 }
