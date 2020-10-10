@@ -17,8 +17,8 @@ const bookSchema = new mongoose.Schema({
       required: true,
     },
   },
-  date: {
-    type: Date,
+  year: {
+    type: String,
     required: true,
   },
   isbn: {
@@ -27,7 +27,7 @@ const bookSchema = new mongoose.Schema({
   },
 });
 
-const Book = mognoose.model("Book", bookSchema);
+const Book = mongoose.model("Book", bookSchema);
 
 function validateBook(book) {
   const schema = Joi.object({
@@ -37,4 +37,4 @@ function validateBook(book) {
 }
 
 exports.Book = Book;
-exports.validate = validateGenre;
+exports.validate = validateBook;
